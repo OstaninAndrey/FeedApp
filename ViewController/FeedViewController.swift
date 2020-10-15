@@ -24,6 +24,7 @@ class FeedViewController: UIViewController {
     // MARK: - VC lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor(named: K.scrollBackground)
         title = "FeedApp"
         feedViewModel.delegate = self
         setupTableView()
