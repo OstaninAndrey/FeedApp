@@ -35,18 +35,16 @@ class FeedViewModel {
         delegate?.startedLoading()
         
         networkService.loadFeed(orderBy: currentOrder, afterCursor: feed?.data?.cursor) { (feed) in
-            DispatchQueue.main.async {
-                self.feed = feed
-                
-                if let items = feed.data?.items {
-                    items.forEach { (item) in
-                        self.posts.append(PostViewModel(post: item))
-                    }
+            self.feed = feed
+            
+            if let items = feed.data?.items {
+                items.forEach { (item) in
+                    self.posts.append(PostViewModel(post: item))
                 }
-                
-                completion()
-                self.delegate?.endedLoading()
             }
+            
+            completion()
+            self.delegate?.endedLoading()
         }
         
     }

@@ -32,7 +32,9 @@ class FeedViewController: UIViewController {
         setConstraints()
         
         feedViewModel.fetchFeed(orderBy: .createdAt, clearPrevious: false) {
-            self.tableView.reloadData()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
     }
     
@@ -113,28 +115,37 @@ class FeedViewController: UIViewController {
     }
 
     private func removeActivityIndicator() {
-        aiView.removeFromSuperview()
+        DispatchQueue.main.async {
+            self.aiView.removeFromSuperview()
+        }
     }
     
     // MARK: - Actions
     @objc private func dateButtonPressed() {
         feedViewModel.fetchFeed(orderBy: .createdAt, clearPrevious: true) {
-            self.tableView.reloadData()
-            self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+            }
         }
     }
     
     @objc private func popularButtonPressed() {
         feedViewModel.fetchFeed(orderBy: .mostPopular, clearPrevious: true) {
-            self.tableView.reloadData()
-            self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+            }
         }
     }
     
     @objc private func commentsButtonPressed() {
         feedViewModel.fetchFeed(orderBy: .mostCommented, clearPrevious: true) {
-            self.tableView.reloadData()
-            self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+            }
         }
     }
     
