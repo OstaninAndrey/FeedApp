@@ -47,7 +47,9 @@ class DetailsViewController: UIViewController {
         nameLabel.text = post.name
         
         postVM?.loadImage(completion: { (image) in
-            self.postImage.image = image
+            DispatchQueue.main.async {
+                self.postImage.image = image
+            }
         })
         
         postTextLabel.text = post.postTextLabel()

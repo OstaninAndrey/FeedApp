@@ -43,10 +43,14 @@ class NetworkService {
         return url
     }
     
+    // переписать запросы
+    
     func loadFeed(orderBy: Ordered, afterCursor: String?, completion: @escaping (Feed) -> Void) {
         let urlString = makeUrlString(orderBy: orderBy, afterCursor: afterCursor)
+        
         if let url = URL(string: urlString) {
             
+            print("MADE URL: \(url.absoluteString)")
             let session = URLSession.shared
             session.dataTask(with: url) { (data, response, error) in
                 if let error = error {

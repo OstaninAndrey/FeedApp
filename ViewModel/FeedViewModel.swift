@@ -34,17 +34,17 @@ class FeedViewModel {
         currentOrder = orderBy
         delegate?.startedLoading()
         
-        networkService.loadFeed(orderBy: currentOrder, afterCursor: feed?.data?.cursor) { (feed) in
-            self.feed = feed
+        networkService.loadFeed(orderBy: currentOrder, afterCursor: feed?.data?.cursor) { [weak self] (feed) in
+            self?.feed = feed
             
             if let items = feed.data?.items {
                 items.forEach { (item) in
-                    self.posts.append(PostViewModel(post: item))
+                    self?.posts.append(PostViewModel(post: item))
                 }
             }
             
             completion()
-            self.delegate?.endedLoading()
+            self?.delegate?.endedLoading()
         }
         
     }
@@ -60,11 +60,11 @@ class FeedViewModel {
     
     // MARK: - Logic
     func checkIfTheLast(index: Int, completion: @escaping () -> Void) {
-        if index == posts.count-1 {
+        if index == posts.count-1, feed?.data?.cursor != nil {
             fetchFeed(orderBy: currentOrder, clearPrevious: false) {
                 completion()
             }
-            
+            self.feed = nil
         }
     }
     

@@ -163,7 +163,9 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         cell.setPostViewModel(postVM: feedViewModel.post(for: indexPath.row))
     
         feedViewModel.checkIfTheLast(index: indexPath.row) {
-            tableView.reloadData()
+            DispatchQueue.main.async {
+                tableView.reloadData()
+            }
         }
         
         return cell

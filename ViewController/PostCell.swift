@@ -45,9 +45,11 @@ class PostCell: UITableViewCell {
         
         userImage.image = UIImage(named: "userImage")
         
-        postVM?.getPostImage(completion: { (image) in
-            self.postImage.image = image
-        })
+        postVM?.getPostImage { (image) in
+            DispatchQueue.main.async {
+                self.postImage.image = image
+            }
+        }
         
         postTextLabel.text = post.postTextLabel()
         

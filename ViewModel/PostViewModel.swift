@@ -87,6 +87,8 @@ class PostViewModel {
         }
     }
     
+    
+    // переместить функционал в NwService
     func loadImage(completion: @escaping (UIImage) -> Void) {
         guard let url = URL(string: postImage?.url ?? "") else {
             if let sample = UIImage(named: "sample") {
@@ -100,15 +102,11 @@ class PostViewModel {
                 let imgData = try Data(contentsOf: url)
                 
                 if let img = UIImage(data: imgData) {
-                    DispatchQueue.main.async {
-                        completion(img)
-                    }
+                    completion(img)
                 }
                 else {
-                    DispatchQueue.main.async {
-                        if let sample = UIImage(named: "sample") {
-                            completion(sample)
-                        }
+                    if let sample = UIImage(named: "sample") {
+                        completion(sample)
                     }
                 }
             } catch {
