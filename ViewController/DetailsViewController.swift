@@ -41,10 +41,9 @@ class DetailsViewController: UIViewController {
     }
     
     private func fillData() {
-        guard let post = postVM else { return }
         
         userImage.image = UIImage(named: "userImage")
-        nameLabel.text = post.name
+        nameLabel.text = postVM!.name
         
         postVM?.loadImage(completion: { (image) in
             DispatchQueue.main.async {
@@ -52,10 +51,10 @@ class DetailsViewController: UIViewController {
             }
         })
         
-        postTextLabel.text = post.postTextLabel()
+        postTextLabel.text = postVM!.postTextLabel()
         
-        likesLabel.text = "Likes: \(post.likes)"
-        viewsLabel.text = "Views: \(post.views)"
+        likesLabel.text = "Likes: \(postVM!.likes)"
+        viewsLabel.text = "Views: \(postVM!.views)"
     }
     
     // MARK: - Configuring UI methods
